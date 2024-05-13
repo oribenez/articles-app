@@ -1,0 +1,32 @@
+form.addArticle{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 30em;
+}
+
+.topbar{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+.topbar button{
+    height: fit-content;
+}
+
+.topbar button:hover svg{
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.btnAddArticle{
+    margin: 2em;
+    width: -moz-fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

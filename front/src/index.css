@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 16px;
+  height: auto;
+  color: #000;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  /* color palette */
+  --main-bg-color: #fff;
+
+  /* main */
+  --primary-color: #301466;
+  --secondary-color: #5c3d99;
+  --third-color: #38a3a5;
+  --forth-color: #57cc99;
+
+  /* text */
+  --primary-font-color: #1a1a1a;
+  --secondary-font-color: #555555;
+  --inverse-font-color: #fff;
+  /* links */
+  --primary-link-color: #646cff;
+  --primary-link-hover-color: #646cff;
+  --secondary-link-color: #1a1a1a;
+  --inverse-link-color: #fff;
+
+  /* button */
+  --btn-bg-color: #38a3a5;
+  --btn-bg-hover-color: #229193;
+  --btn-font-color: var(--inverse-font-color);
+  --btn-border-color: #4eb1b2;
+
+  /* alerts */
+  --success-color: #198038;
+  --fail-color: #da1e28;
+  --warning-color: #f1c21b;
+  --info-color: #1192e8;
+
+  --success-light-color: #6cce89;
+  --fail-light-color: #e46d73;
+  --warning-light-color: #f8df83;
+  --info-light-color: #89c6ef;
+}
+
+a {
+  font-weight: 500;
+  color: var(--primary-link-color);
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: var(--primary-link-hover-color);
+}
+
+body {
+  margin: 0;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--primary-font-color);
+  background-color: var(--main-bg-color);
+}
+
+/* General styles for all heading elements  */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0 0 1em;
+}
+
+b {
+  font-weight: 600;
+}
+
+i {
+  font-weight: 300;
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1rem;
+  padding: .3rem;
+  border-color: hsl(0, 0%, 80%);
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form .helperText {
+  font-size: .8em;
+  color: var(--fail-color);
+  font-weight: 400;
+}
+
+button.transparent {
+  border: 0;
+  background: none;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.button {
+  background-color: var(--btn-bg-color);
+  color: var(--btn-font-color);
+  border-color: var(--btn-border-color);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--btn-bg-hover-color) !important;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 1rem;
+}
