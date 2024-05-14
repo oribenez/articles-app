@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import 'express-async-errors';
 import articlesRouter from "./routes/articles";
+import categoriesRouter from "./routes/categories";
 import errorHandler from './middlewares/errorHandler';
 import cors from "cors";
 import { MongoMemoryServer } from "mongodb-memory-server";
@@ -37,6 +38,7 @@ app.use(
   })
 );
 app.use("/articles", articlesRouter);
+app.use("/categories", categoriesRouter);
 
 // handle errors
 app.use(errorHandler);

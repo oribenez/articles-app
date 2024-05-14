@@ -20,9 +20,13 @@
 
   /* main */
   --primary-color: #301466;
-  --secondary-color: #5c3d99;
-  --third-color: #38a3a5;
-  --forth-color: #57cc99;
+  --secondary-color: #38a3a5;
+  --third-color: #57cc99;
+
+  --primary-light-color: #5c3d99;
+  --secondary-light-color: #66bebf;
+  --third-light-color: #7fd8b2;
+
 
   /* text */
   --primary-font-color: #1a1a1a;
@@ -58,6 +62,17 @@ a {
   text-decoration: inherit;
 }
 
+nav a.active{
+  color: var(--third-color);
+  text-decoration: underline;
+}
+nav a{
+  color: var(--third-color);
+}
+
+nav a:hover {
+  color: var(--third-light-color);
+}
 a:hover {
   color: var(--primary-link-hover-color);
 }

@@ -1,4 +1,4 @@
-form.addArticle{
+form.addCategory{
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -19,14 +19,3 @@ form.addArticle{
     border-radius: 50%;
 }
 
-.btnAddArticle{
-    margin: 2em;
-    width: -moz-fit-content;
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-}

@@ -2,8 +2,8 @@ import { optional, z } from "zod";
 
 export const addArticleSchema = z
   .object({
-    title: z.string().min(3, 'Title must be at least 10 characters'),
-    description: z.string().min(5, 'Description must be at least 10 characters'),
+    title: z.string().min(3, 'Title must be at least 3 characters'),
+    description: z.string().min(5, 'Description must be at least 5 characters'),
     body: z.string().min(10, 'Body must be at least 10 characters'),
     category: z.string().refine(category => category !== '', {
       message: 'Please choose a category'
@@ -14,7 +14,7 @@ export const addArticleSchema = z
     })).min(1, 'Choose at least one tag')
   })
 
-export type SignUpSchemaType = z.infer<typeof addArticleSchema>;
+export type AddArticleSchemaType = z.infer<typeof addArticleSchema>;
 
 export interface IArticle {
   _id: string
@@ -22,13 +22,12 @@ export interface IArticle {
   description: string
   body: string
   category: string
-  tags: string[]
+  tags: {
+    _id?: string
+    title: string
+  }[]
   createdAt?: string
   updatedAt?: string
-}
-
-export interface ArticleProps {
-  article: IArticle
 }
 
 export type TApi = {

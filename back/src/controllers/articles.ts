@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Article, { IArticle, TArticle } from "../database/models/article";
 
+// NOTE:: all async and sync errors are catched with a middleware using express!
 
 export const getArticles = async (req: Request, res: Response): Promise<void> => {
   const articles: IArticle[] = await Article.find()
@@ -10,6 +11,7 @@ export const getArticles = async (req: Request, res: Response): Promise<void> =>
 
 export const addArticle = async (req: Request, res: Response): Promise<void> => {
   const body: TArticle = req.body;
+  console.log(body)
 
   const article: IArticle = new Article({
     title: body.title,
@@ -18,7 +20,7 @@ export const addArticle = async (req: Request, res: Response): Promise<void> => 
     category: body.category,
     tags: body.tags
   })
-
+  console.log(article)
   const newArticle: IArticle = await article.save()
   const allArticles: IArticle[] = await Article.find()
 
@@ -50,7 +52,7 @@ export const deleteArticle = async (req: Request, res: Response): Promise<void> 
   )
   const allArticles: IArticle[] = await Article.find()
   res.status(200).json({
-    message: "Todo deleted",
+    message: "Article deleted",
     article: deletedArticle,
     articles: allArticles,
   })

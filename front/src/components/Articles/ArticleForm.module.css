@@ -1,0 +1,21 @@
+form.addArticle{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    width: 30em;
+}
+
+.topbar{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+.topbar button{
+    height: fit-content;
+}
+
+.topbar button:hover svg{
+    background-color: #eee;
+    border-radius: 50%;
+}
+

@@ -24,15 +24,3 @@
     cursor: pointer;
 }
 
-.title {}
-
-.tags{
-    display: flex;
-    gap: .5em;
-}
-.tag{
-    padding: 0.1em .5em;
-    background-color: var(--info-light-color);
-    border-radius: 1em;
-    color: #fff;
-}
