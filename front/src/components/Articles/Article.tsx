@@ -32,7 +32,7 @@ const Article: FC<ArticleProps> = ({ article, articleInModal, showModalHandler, 
                     <p className={s.body}>{article.body}</p>
                     <p className={s.category}>{article.category.title}</p>
                     <p className={s.tags}>
-                        {article.tags.map((tag) => <span className={s.tag}>{tag.title}</span>)}
+                        {article.tags.map((tag) => <span key={tag.title} className={s.tag}>{tag.title}</span>)}
                     </p>
                 </>}
             </div>
@@ -62,7 +62,7 @@ const ArticleWithModal: FC<ArticleWithModalProps> = ({ article, status = "Plain"
     if (status === 'Create' && showModalCreateMode && onCloseModalCreateMode) {
         showModal = showModalCreateMode
         setShowModal = onCloseModalCreateMode
-    } 
+    }
 
     // when willing to edit
     const onEditHandler = () => {
@@ -82,7 +82,14 @@ const ArticleWithModal: FC<ArticleWithModalProps> = ({ article, status = "Plain"
         <Modal open={showModal} onClose={() => setShowModal(false)} center closeIcon={<></>}>
             <button className="transparent" onClick={() => setShowModal(false)} style={{ float: 'right' }}><IoClose size={25} /></button>
 
-            {currStatus === 'Edit' && onUpdate && <ArticleForm onSubmit={onUpdateHandler} defaultValues={article} isEdit />}
+            {currStatus === 'Edit' && article && onUpdate && <ArticleForm onSubmit={onUpdateHandler} defaultValues={{
+                category: article.category._id,
+                title: article.title,
+                description: article.description,
+                body: article.body,
+                tags: 'tags' in article ? article.tags.map(tag => ({ value: tag._id, label: tag.title })) : []
+            }} isEdit
+            />}
             {currStatus === 'Create' && onCreate && <ArticleForm onSubmit={onCreateHandler} />}
             {currStatus === 'Plain' && (article && onUpdate && onDelete) && <Article {...{ article, onDelete }} onEdit={onEditHandler} articleInModal style={{ width: '30em' }} />}
         </Modal>

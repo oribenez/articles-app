@@ -22,7 +22,7 @@ export type SelectOptionType = {
 
 type ArticleFormProps = {
   onSubmit: (formData: IArticle | any) => void
-  defaultValues?: {}
+  defaultValues?: AddArticleSchemaType
   isEdit?: boolean
 }
 
