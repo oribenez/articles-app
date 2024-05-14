@@ -1,6 +1,6 @@
 import { FC, useState } from "react"
 import s from './Article.module.css'
-import { AddArticleSchemaType, IArticle } from "../../api/types/article";
+import { ArticleFormSchemaType, TArticlePopulated } from "../../api/types/article";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import Modal from "react-responsive-modal";
@@ -8,7 +8,7 @@ import ArticleForm from "./ArticleForm";
 import { IoClose } from "react-icons/io5";
 
 type ArticleProps = {
-    article: IArticle
+    article: TArticlePopulated
     articleInModal?: boolean
     showModalHandler?: () => void
     style?: {}
@@ -28,11 +28,15 @@ const Article: FC<ArticleProps> = ({ article, articleInModal, showModalHandler, 
             </div>
             <div>
                 <p className={s.description}>{article.description}</p>
+                {!articleInModal && <p className={s.readMore}>Read more...</p>}
                 {articleInModal && <>
                     <p className={s.body}>{article.body}</p>
-                    <p className={s.category}>{article.category.title}</p>
-                    <p className={s.tags}>
-                        {article.tags.map((tag) => <span key={tag.title} className={s.tag}>{tag.title}</span>)}
+                    <p className={s.category}><b>Category: </b>
+                        {article.category.title}
+                        {article.category.description && <i style={{ color: '#aaa' }}> - {article.category.description}</i>}
+                    </p>
+                    <p className={s.tags}><b>Tags:</b>
+                        {article.tags.map((tag, index) => <span key={tag.title + '_' + index} className={s.tag}>{tag.title}</span>)}
                     </p>
                 </>}
             </div>
@@ -45,59 +49,80 @@ const Article: FC<ArticleProps> = ({ article, articleInModal, showModalHandler, 
 }
 
 
-type ArticleWithModalProps = {
-    status?: 'Create' | 'Edit' | 'Plain'
-    article?: IArticle
-    onUpdate?: any
-    onCreate?: any
-    onDelete?: any
-    showModalCreateMode?: boolean
-    onCloseModalCreateMode?: () => void
+type CreateArticleWithModalProps = {
+    status: 'Create'
+    onCreate: any
+    showModalCreateMode: boolean
+    onCloseModalCreateMode: () => void
+}
+// type EditArticleWithModalProps = {
+//     status: 'Edit'
+//     article: TArticlePopulated
+//     onUpdate: any
+// }
+
+type PlainArticleWithModalProps = {
+    status: 'Plain'
+    article: TArticlePopulated
+    onDelete: any
+    onUpdate: any
 }
 
-const ArticleWithModal: FC<ArticleWithModalProps> = ({ article, status = "Plain", onUpdate, onCreate, onDelete, showModalCreateMode, onCloseModalCreateMode }) => {
-    let [showModal, setShowModal] = useState(false);
-    let [currStatus, setCurrStatus] = useState(status);
+type ArticleWithModalProps = CreateArticleWithModalProps | PlainArticleWithModalProps
 
-    if (status === 'Create' && showModalCreateMode && onCloseModalCreateMode) {
+const ArticleWithModal: FC<ArticleWithModalProps> = (props) => {
+    let [showModal, setShowModal] = useState(false);
+    let [isEdit, setIsEdit] = useState(false);
+
+    let jsxInsideModal = <></>
+    let jsxOutsideModal = <></>
+
+    if (props.status === 'Create') {
+        const { onCreate, showModalCreateMode, onCloseModalCreateMode } = props
         showModal = showModalCreateMode
         setShowModal = onCloseModalCreateMode
+
+        const onCreateHandler = (formData: ArticleFormSchemaType) => {
+            onCreate(formData)
+            setShowModal(prev => !prev)
+        }
+        jsxInsideModal = <ArticleForm onSubmit={onCreateHandler} />
+
+    } else { // default: props.status === 'Plain'
+        const { onDelete, article } = props
+
+        // when willing to edit
+        const onEditHandler = () => {
+            setShowModal(true)
+            setIsEdit(true)
+        }
+
+        jsxInsideModal = <Article {...{ article, onDelete }} onEdit={onEditHandler} articleInModal style={{ width: '30em' }} />
+
+        jsxOutsideModal = <article className="card">
+            <Article {...{ article, onDelete }} showModalHandler={() => setShowModal(prev => !prev)} onEdit={onEditHandler} />
+        </article>
     }
 
-    // when willing to edit
-    const onEditHandler = () => {
-        setShowModal(prev => !prev)
-        setCurrStatus('Edit')
-    }
-    const onUpdateHandler = (formData: IArticle) => {
-        onUpdate(formData)
-        setShowModal(prev => !prev)
-    }
-    const onCreateHandler = (formData: AddArticleSchemaType) => {
-        onCreate(formData)
-        setShowModal(prev => !prev)
+    if (props.status === 'Plain' && isEdit) {
+        const { onUpdate, article } = props
+
+        const onUpdateHandler = (formData: TArticlePopulated) => {
+            onUpdate(formData)
+            setShowModal(prev => !prev)
+            setIsEdit(false)
+        }
+
+        jsxInsideModal = <ArticleForm onSubmit={onUpdateHandler} article={article} isEdit />
     }
 
     return <>
-        <Modal open={showModal} onClose={() => setShowModal(false)} center closeIcon={<></>}>
+        <Modal open={showModal} onClose={() => { setShowModal(false); setIsEdit(false); }} center closeIcon={<></>} animationDuration={0}>
             <button className="transparent" onClick={() => setShowModal(false)} style={{ float: 'right' }}><IoClose size={25} /></button>
-
-            {currStatus === 'Edit' && article && onUpdate && <ArticleForm onSubmit={onUpdateHandler} defaultValues={{
-                category: article.category._id,
-                title: article.title,
-                description: article.description,
-                body: article.body,
-                tags: 'tags' in article ? article.tags.map(tag => ({ value: tag._id, label: tag.title })) : []
-            }} isEdit
-            />}
-            {currStatus === 'Create' && onCreate && <ArticleForm onSubmit={onCreateHandler} />}
-            {currStatus === 'Plain' && (article && onUpdate && onDelete) && <Article {...{ article, onDelete }} onEdit={onEditHandler} articleInModal style={{ width: '30em' }} />}
+            {jsxInsideModal}
         </Modal>
-        {(article && onUpdate && onDelete) &&
-            <article className="card">
-                <Article {...{ article, onDelete }} showModalHandler={() => setShowModal(prev => !prev)} onEdit={onEditHandler} />
-            </article>
-        }
+
+        {jsxOutsideModal}
     </>;
 }
 

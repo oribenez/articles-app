@@ -14,9 +14,21 @@ export const addArticleSchema = z
     })).min(1, 'Choose at least one tag')
   })
 
-export type AddArticleSchemaType = z.infer<typeof addArticleSchema>;
+export type ArticleFormSchemaType = z.infer<typeof addArticleSchema>;
 
-export interface IArticle {
+
+export type TArticle = {
+  _id: string
+  title: string
+  description: string
+  body: string
+  category: string
+  tags: {
+    title: string
+  }[]
+}
+
+export type TArticlePopulated = {
   _id: string
   title: string
   description: string
@@ -24,6 +36,7 @@ export interface IArticle {
   category: {
     _id: string
     title: string
+    description: string
   }
   tags: {
     _id: string
@@ -36,6 +49,6 @@ export interface IArticle {
 export type TApi = {
   message: string
   status: string
-  articles: IArticle[]
-  article?: IArticle
+  articles: TArticlePopulated[]
+  article?: TArticlePopulated
 }

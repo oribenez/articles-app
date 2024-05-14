@@ -26,13 +26,33 @@
 
 .title {}
 
+.description{
+    background: #eee;
+    padding: 0.3em;
+    margin-bottom: .5em;
+}
+.category{
+    /* color: #aaa; */
+    /* font-size: .9em; */
+}
 .tags{
     display: flex;
     gap: .5em;
+    text-wrap: nowrap;
+    flex-wrap: wrap;
 }
 .tag{
     padding: 0.1em .5em;
     background-color: var(--info-light-color);
     border-radius: 1em;
     color: #fff;
+}
+
+.readMore{
+    text-align: right;
+    padding: 0;
+    margin: 0;
+    font-size: .9em;
+    color: #777;
+    font-weight: 400;
 }

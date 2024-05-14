@@ -169,6 +169,7 @@ button.transparent {
   background: none;
   width: fit-content;
   cursor: pointer;
+  outline: none;
 }
 
 .button {

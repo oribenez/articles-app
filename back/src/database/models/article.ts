@@ -2,18 +2,17 @@ import { Document, model, Schema } from "mongoose"
 import { SchemasNames } from '../constants'
 const ObjectId = Schema.Types.ObjectId;
 
-export type TTag = {
-    title: string,
-}
 export type TArticle = {
     title: string
     description: string
     body: string
     category: string
-    tags: TTag[]
+    tags: {
+        title: string,
+    }[]
 }
 
-export interface IArticle extends TArticle, Document { }
+export interface TArticlePopulated extends TArticle, Document { }
 
 const articleSchema: Schema = new Schema(
     {
@@ -28,4 +27,4 @@ const articleSchema: Schema = new Schema(
     { timestamps: true }
 )
 
-export default model<IArticle>(SchemasNames.Article, articleSchema)
+export default model<TArticlePopulated>(SchemasNames.Article, articleSchema)

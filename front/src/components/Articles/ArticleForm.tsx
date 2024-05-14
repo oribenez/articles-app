@@ -1,8 +1,8 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import s from "./ArticleForm.module.css";
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Controller, useForm } from "react-hook-form";
-import { AddArticleSchemaType, IArticle, addArticleSchema } from "../../api/types/article";
+import { ArticleFormSchemaType, TArticlePopulated, addArticleSchema } from "../../api/types/article";
 import TagsSelector from 'react-select/creatable';
 import useCategories from "../../api/categories/useCategories";
 
@@ -20,31 +20,50 @@ export type SelectOptionType = {
 //   { value: 'Vanilla', label: 'Vanilla' }
 // ]
 
+
 type ArticleFormProps = {
-  onSubmit: (formData: IArticle | any) => void
-  defaultValues?: AddArticleSchemaType
+  onSubmit: (formData: TArticlePopulated | any) => void
+  article?: TArticlePopulated
   isEdit?: boolean
 }
 
-const ArticleForm: FC<ArticleFormProps> = ({ onSubmit, defaultValues = {}, isEdit = false }) => {
-  const { data: categories } = useCategories()
+const ArticleForm: FC<ArticleFormProps> = ({ onSubmit, article, isEdit = false }) => {
+  const { data: categories, isSuccess } = useCategories()
+  const defaultValues: ArticleFormSchemaType | {} = article && isEdit ? {
+    category: article.category._id,
+    title: article.title,
+    description: article.description,
+    body: article.body,
+    tags: 'tags' in article ? article.tags.map(tag => ({ value: tag._id, label: tag.title })) : []
+  } : {}
 
   const {
     register,
     handleSubmit,
     control,
-    formState: { errors }
-  } = useForm<AddArticleSchemaType>({
+    formState: { errors },
+    watch,
+    reset
+  } = useForm<ArticleFormSchemaType>({
     defaultValues,
     resolver: zodResolver(addArticleSchema)
   })
 
+  useEffect(() => {
+    reset(defaultValues);
+  }, [isSuccess]);
+
+  console.log('category', watch('category'))
+  const onSubmitForm = (formData: ArticleFormSchemaType) => {
+    onSubmit(isEdit ? { _id: article?._id, article: formData } : { article: formData })
+  }
+  
   // console.log(errors)
   return <>
     <div className={s.topbar}>
       <h5>{isEdit ? "Update article" : "Write new article"}</h5>
     </div>
-    <form className={s.addArticle} onSubmit={handleSubmit(onSubmit)}>
+    <form className={s.addArticle} onSubmit={handleSubmit(onSubmitForm)}>
 
       <div>
         <input
@@ -75,8 +94,8 @@ const ArticleForm: FC<ArticleFormProps> = ({ onSubmit, defaultValues = {}, isEdi
           rules={{ required: true }}
           render={({ field }) => (
             <TagsSelector {...field} isMulti
-            //  options={options as any} 
-             placeholder="Select tags..." />
+              //  options={options as any} 
+              placeholder="Select tags..." />
           )}
         />
         {errors.tags && <span className="helperText">{errors.tags.message}</span>}

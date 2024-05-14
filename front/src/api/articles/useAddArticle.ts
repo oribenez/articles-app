@@ -1,14 +1,18 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { AddArticleSchemaType, IArticle } from "../types/article"
+import { ArticleFormSchemaType, TArticlePopulated, TArticle } from "../types/article"
 import axios from "axios"
 import { QueryKeys, Routes } from "../constants"
 
-
-const addArticle = async (article: AddArticleSchemaType) : Promise<IArticle[]> => {
-    const tags = article.tags.map(tag => ({ title: tag.label }))
-    const newArticle = {
-        ...article,
-        tags
+type addArticleProps = {
+    article: ArticleFormSchemaType
+}
+const addArticle = async ({ article }: addArticleProps): Promise<TArticlePopulated[]> => {
+    const newArticle: Omit<TArticle, '_id'> = {
+        title: article.title,
+        description: article.description,
+        body: article.body,
+        category: article.category,
+        tags: article.tags.map(tag => ({ title: tag.label }))
     }
     return axios.put(Routes.articles, newArticle).then((res) => res.data.articles)
 }
