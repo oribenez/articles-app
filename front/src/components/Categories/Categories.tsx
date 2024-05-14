@@ -15,11 +15,9 @@ const Categories: FC<CategoriesProps> = ({ categories, isLoading, onUpdate, onDe
     return <>
 
         {!isLoading && categories
-            ? <ul className={s.categoriesList}>
-                {categories.map((category: ICategory) => {
-                    return <li key={category._id}><Category {...{ category, onUpdate, onDelete }} /></li>
-                })}
-            </ul>
+            ? categories.map((category: ICategory) => {
+                return <Category key={category._id} {...{ category, onUpdate, onDelete }} />
+            })
             : <LoadingSpinner />
         }
     </>

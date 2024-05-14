@@ -13,7 +13,7 @@ const Categories: FC = () => {
     const { mutate: deleteCategory } = useDeleteCategory()
 
     return <>
-        <h3 style={{ margin: '0' }}>Categories</h3>
+        <h3>Categories</h3>
         <div className={s.categoriesList}>
             <CategoriesList {...{ categories }} isLoading={isLoadingCategories} onUpdate={updateCategory} onDelete={deleteCategory} />
         </div>

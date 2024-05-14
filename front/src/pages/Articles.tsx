@@ -13,7 +13,7 @@ const Articles: FC = () => {
     const { mutate: deleteArticle } = useDeleteArticle()
 
     return <>
-        <h3 style={{ margin: '0' }}>Articles</h3>
+        <h3>Articles</h3>
         <div className={s.articlesList}>
             <ArticlesList {...{ articles }} isLoading={isLoadingArticles} onUpdate={updateArticle} onDelete={deleteArticle} />
         </div>

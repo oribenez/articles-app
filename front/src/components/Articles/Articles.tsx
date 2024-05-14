@@ -10,7 +10,7 @@ type ArticlesListProps = {
     onDelete: any
 }
 const Articles: FC<ArticlesListProps> = ({ articles, isLoading, onUpdate, onDelete }) => {
-    console.log(!isLoading,  articles)
+
     return <>
     
         {!isLoading && articles
