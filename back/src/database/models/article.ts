@@ -4,7 +4,6 @@ const ObjectId = Schema.Types.ObjectId;
 
 export type TTag = {
     title: string,
-    description: string,
 }
 export type TArticle = {
     title: string

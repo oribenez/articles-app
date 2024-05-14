@@ -21,9 +21,12 @@ export interface IArticle {
   title: string
   description: string
   body: string
-  category: string
+  category: {
+    _id: string
+    title: string
+  }
   tags: {
-    _id?: string
+    _id: string
     title: string
   }[]
   createdAt?: string

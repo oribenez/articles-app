@@ -30,7 +30,7 @@ const Article: FC<ArticleProps> = ({ article, articleInModal, showModalHandler, 
                 <p className={s.description}>{article.description}</p>
                 {articleInModal && <>
                     <p className={s.body}>{article.body}</p>
-                    <p className={s.category}>{article.category}</p>
+                    <p className={s.category}>{article.category.title}</p>
                     <p className={s.tags}>
                         {article.tags.map((tag) => <span className={s.tag}>{tag.title}</span>)}
                     </p>
@@ -74,12 +74,7 @@ const ArticleWithModal: FC<ArticleWithModalProps> = ({ article, status = "Plain"
         setShowModal(prev => !prev)
     }
     const onCreateHandler = (formData: AddArticleSchemaType) => {
-        const tags = formData.tags.map(tag => ({ title: tag.label }))
-        const newData: Omit<IArticle, '_id'> = {
-            ...formData,
-            tags
-        }
-        onCreate(newData)
+        onCreate(formData)
         setShowModal(prev => !prev)
     }
 
