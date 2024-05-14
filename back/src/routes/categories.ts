@@ -3,8 +3,8 @@ import { getCategories, addCategory, deleteCategory, updateCategory } from "../c
 var router = express.Router();
 
 router.get("/", getCategories);
-router.put("/", addCategory);
-router.patch("/:id", updateCategory);
+router.post("/", addCategory);
+router.put("/:id", updateCategory);
 router.delete("/:id", deleteCategory);
 
 

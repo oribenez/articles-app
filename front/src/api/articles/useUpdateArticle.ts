@@ -17,7 +17,7 @@ const updateArticle = async ({ _id, article }: updateArticleProps): Promise<TArt
         tags: article.tags.map(tag => ({ title: tag.label }))
     }
     return axios
-        .patch(`${Routes.articles}/${_id}`, updatedArticle)
+        .put(`${Routes.articles}/${_id}`, updatedArticle)
         .then((res) => res.data.articles)
 }
 

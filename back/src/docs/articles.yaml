@@ -1,0 +1,248 @@
+tags:
+  name: Articles
+  description: The articles managing API
+
+  
+paths:
+  /articles:
+    get:
+      tags: [Articles]
+      summary: Get all articles
+      responses:
+        '200':
+          description: A list of articles
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+      examples:
+        AllArticles:
+          summary: Example of getting all articles
+          value:
+            message: "Articles retrieved successfully"
+            articles:
+              - id: "1"
+                title: "Article 1"
+                description: "Description of Article 1"
+                body: "Body of Article 1"
+                tags:
+                  - _id: "1"
+                    title: "Tag 1"
+                  - _id: "2"
+                    title: "Tag 2"
+                category:
+                  _id: "1"
+                  title: "Category 1"
+              - id: "2"
+                title: "Article 2"
+                description: "Description of Article 2"
+                body: "Body of Article 2"
+                tags:
+                  - _id: "3"
+                    title: "Tag 3"
+                  - _id: "4"
+                    title: "Tag 4"
+                category:
+                  _id: "2"
+                  title: "Category 2"
+    post:
+      tags: [Articles]
+      summary: Create a new article
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleForm'
+            example:
+              title: "New Article"
+              description: "This is a new article."
+              body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              tags:
+                  - title: "Tag 1"
+                  - title: "Tag 2"
+              category: '66438f550a5b4174bcebfaf6'
+      responses:
+        '201':
+          description: The created article
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  article:
+                    $ref: '#/components/schemas/Article'
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+      examples:
+        NewArticle:
+          summary: Example of creating a new article
+          value:
+            message: "Article created successfully"
+            article:
+              title: "New Article"
+              description: "This is a new article."
+              body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              tags:
+                - _id: "1"
+                  title: "Tag 1"
+                - _id: "2"
+                  title: "Tag 2"
+              category:
+                _id: "1"
+                title: "Category 1"
+            articles: []
+  /articles/{id}:
+    put:
+      tags: [Articles]
+      summary: Update an existing article
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleForm'
+            example:
+              title: "Updated Article"
+              description: "Updated This is an updated article."
+              body: "Updated Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              tags:
+                  - title: "Updated Tag 1"
+                  - title: "Updated Tag 2"
+              category: '66438f550a5b4174bcebfaf6'
+
+      responses:
+        '200':
+          description: The updated article
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  article:
+                    $ref: '#/components/schemas/Article'
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+      examples:
+        UpdatedArticle:
+          summary: Example of updating an article
+          value:
+            message: "Article updated successfully"
+            article:
+              title: "Updated Article"
+              description: "This is an updated article."
+              body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut sit amet velit ac odio viverra suscipit."
+              tags:
+                - _id: "1"
+                  title: "Tag 1"
+                - _id: "2"
+                  title: "Tag 2"
+              category:
+                _id: "1"
+                title: "Category 1"
+            articles: []
+    delete:
+      tags: [Articles]
+      summary: Delete an article
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Article deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  article:
+                    description: the deleted article
+                    $ref: '#/components/schemas/Article'
+                  articles:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Article'
+      examples:
+        DeletedArticle:
+          summary: Example of deleting an article
+          value:
+            message: "Article deleted successfully"
+            articles: []
+components:
+  schemas:
+    Article:
+      type: object
+      required:
+        - title
+        - description
+        - body
+        - tags
+        - category
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        body:
+          type: string
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+              title:
+                type: string
+        category:
+          $ref: '#/components/schemas/Category'
+    ArticleForm:
+      type: object
+      required:
+        - title
+        - description
+        - body
+        - tags
+        - category
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        body:
+          type: string
+        tags:
+          type: array
+          items:
+            type: object
+            properties:
+              title:
+                type: string
+        category:
+          type: string

@@ -6,7 +6,7 @@ import { ICategory } from "../types/category"
 const updateCategory = async (category: ICategory): Promise<ICategory[]> => {
     console.log(category)
     return axios
-        .patch(`${Routes.categories}/${category._id}`, category)
+        .put(`${Routes.categories}/${category._id}`, category)
         .then((res) => res.data.categories)
 }
 

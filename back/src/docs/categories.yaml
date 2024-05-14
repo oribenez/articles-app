@@ -1,0 +1,160 @@
+tags:
+  name: Categories
+  description: The categories managing API
+
+
+paths:
+  /categories:
+    get:
+      tags: [Categories]
+      summary: Get all categories
+      responses:
+        '200':
+          description: A list of categories
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+      examples:
+        AllCategories:
+          summary: Example of getting all categories
+          value:
+            message: "Categories retrieved successfully"
+            categories:
+              - _id: "1"
+                title: "Category 1"
+                description: "Description of Category 1"
+              - _id: "2"
+                title: "Category 2"
+                description: "Description of Category 2"
+    post:
+      tags: [Categories]
+      summary: Create a new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+            example:
+              title: "New Category"
+              description: "This is a new category."
+      responses:
+        '201':
+          description: The created category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  category:
+                    $ref: '#/components/schemas/Category'
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+      examples:
+        NewCategory:
+          summary: Example of creating a new category
+          value:
+            message: "Category created successfully"
+            category:
+              title: "New Category"
+              description: "This is a new category."
+            categories: []
+  /categories/{id}:
+    put:
+      tags: [Categories]
+      summary: Update an existing category
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+            example:
+              title: "Updated Category"
+              description: "This is an updated category."
+      responses:
+        '200':
+          description: The updated category
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  category:
+                    $ref: '#/components/schemas/Category'
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+      examples:
+        UpdatedCategory:
+          summary: Example of updating a category
+          value:
+            message: "Category updated successfully"
+            category:
+              title: "Updated Category"
+              description: "This is an updated category."
+            categories: []
+    delete:
+      tags: [Categories]
+      summary: Delete a category
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Category deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  categories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Category'
+      examples:
+        DeletedCategory:
+          summary: Example of deleting a category
+          value:
+            message: "Category deleted successfully"
+            categories: []
+components:
+  schemas:
+    Category:
+      type: object
+      required:
+        - title
+        - description
+      properties:
+        _id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string

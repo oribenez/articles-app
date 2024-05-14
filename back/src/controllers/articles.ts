@@ -5,13 +5,11 @@ import Article, { TArticlePopulated, TArticle } from "../database/models/article
 
 export const getArticles = async (req: Request, res: Response): Promise<void> => {
   const articles: TArticlePopulated[] = await Article.find().populate('category', '_id title description')
-  console.log(articles)
   res.status(200).json({ articles });
 }
 
 export const addArticle = async (req: Request, res: Response): Promise<void> => {
   const body: TArticle = req.body;
-  console.log(body)
 
   const article: TArticlePopulated = new Article({
     title: body.title,
@@ -20,7 +18,7 @@ export const addArticle = async (req: Request, res: Response): Promise<void> => 
     category: body.category,
     tags: body.tags
   })
-  console.log(article)
+
   const newArticle: TArticlePopulated = await article.save()
   const allArticles: TArticlePopulated[] = await Article.find().populate('category', '_id title description')
   console.log(allArticles)
@@ -51,6 +49,7 @@ export const deleteArticle = async (req: Request, res: Response): Promise<void> 
     req.params.id
   )
   const allArticles: TArticlePopulated[] = await Article.find().populate('category', '_id title description')
+  
   res.status(200).json({
     message: "Article deleted",
     article: deletedArticle,

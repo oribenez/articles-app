@@ -14,7 +14,7 @@ const addArticle = async ({ article }: addArticleProps): Promise<TArticlePopulat
         category: article.category,
         tags: article.tags.map(tag => ({ title: tag.label }))
     }
-    return axios.put(Routes.articles, newArticle).then((res) => res.data.articles)
+    return axios.post(Routes.articles, newArticle).then((res) => res.data.articles)
 }
 
 const useAddArticle = () => {

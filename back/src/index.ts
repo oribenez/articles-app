@@ -1,5 +1,8 @@
 import express, { Application } from "express";
-import 'express-async-errors';
+import 'express-async-errors'; // catching also async errors
+import swaggerUi from "swagger-ui-express";
+import swaggerJsDoc from 'swagger-jsdoc'
+import morgan from "morgan";
 import articlesRouter from "./routes/articles";
 import categoriesRouter from "./routes/categories";
 import errorHandler from './middlewares/errorHandler';
@@ -27,16 +30,31 @@ const initDb = async () => {
 };
 const app: Application = express();
 const port = process.env.PORT || 8000;
-app.use(
-  cors({
-    origin: "*",
-  })
-);
-app.use(
-  express.json({
-    limit: "2mb",
-  })
-);
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Articles API",
+      version: "1.0.0",
+      description: "as a homework assesment for Firearc",
+    },
+    servers: [
+      {
+        url: "http://localhost:8000",
+      },
+    ],
+  },
+  apis: ["**/docs/*.yaml"],
+};
+
+const specs = swaggerJsDoc(options);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
+app.use(morgan("tiny"));  // logging requests
+app.use(cors({ origin: "*" }));
+app.use(express.json({ limit: "2mb" }));
+
 app.use("/articles", articlesRouter);
 app.use("/categories", categoriesRouter);
 
