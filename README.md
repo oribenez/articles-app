@@ -13,14 +13,8 @@ https://drive.google.com/file/d/1ng5eKmF7YfDy5VobIoUdJscI35IecX5R/view?usp=shari
 5. [Technologies Used](#technologies-used)
 
 ## Features
-
-- **Create**: Add new articles with details including title, description, body, and associated categories/tags.
-- **Read**: View detailed information about existing articles, including their categories and tags.
-- **Update**: Modify existing articles' details such as title, description, and body.
-- **Delete**: Remove articles from the database.
-- **Get All Articles**: Retrieve a list of all articles stored in the database.
-- **Manage Categories**: Create, read, update, and delete categories for better organization.
-- **Manage Tags**: Create, read, update, and delete tags to categorize articles effectively.
+- **Manage Articles**: All CRUD operations.
+- **Manage Categories**: All CRUD operations.
 
 ## Installation
 
