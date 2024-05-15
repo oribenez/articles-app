@@ -18,7 +18,18 @@ type ArticleProps = {
 }
 
 const Article: FC<ArticleProps> = ({ article, articleInModal, showModalHandler, style, onEdit, onDelete }) => {
+    
     const friendlyDate = article.createdAt && formatDistance(new Date(article.createdAt), new Date(), { addSuffix: true })
+    
+    let category = <i style={{ color: 'var(--fail-color)' }}>Deleted category</i>
+    if (article.category) {
+        category = <>
+        {article.category.title}
+        {article.category.description && <i style={{ color: '#aaa' }}> - {article.category.description}</i>}
+        </>
+    }
+
+
     return <>
         <div {...(!articleInModal && { onClick: showModalHandler })}
             style={{ ...style, ...(!articleInModal && { cursor: 'pointer' }) }}>
@@ -32,8 +43,7 @@ const Article: FC<ArticleProps> = ({ article, articleInModal, showModalHandler, 
                 {articleInModal && <>
                     <p className={s.body}>{article.body}</p>
                     <p className={s.category}><b>Category: </b>
-                        {article.category.title}
-                        {article.category.description && <i style={{ color: '#aaa' }}> - {article.category.description}</i>}
+                        {category}
                     </p>
                     <p className={s.tags}><b>Tags:</b>
                         {article.tags.map((tag, index) => <span key={tag.title + '_' + index} className={s.tag}>{tag.title}</span>)}

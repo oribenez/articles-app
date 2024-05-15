@@ -28,9 +28,11 @@ type ArticleFormProps = {
 }
 
 const ArticleForm: FC<ArticleFormProps> = ({ onSubmit, article, isEdit = false }) => {
+
   const { data: categories, isSuccess } = useCategories()
+
   const defaultValues: ArticleFormSchemaType | {} = article && isEdit ? {
-    category: article.category._id,
+    category: article.category?._id || '',
     title: article.title,
     description: article.description,
     body: article.body,
@@ -54,7 +56,7 @@ const ArticleForm: FC<ArticleFormProps> = ({ onSubmit, article, isEdit = false }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
-  console.log('category', watch('category'))
+
   const onSubmitForm = (formData: ArticleFormSchemaType) => {
     onSubmit(isEdit ? { _id: article?._id, article: formData } : { article: formData })
   }

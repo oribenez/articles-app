@@ -11,13 +11,12 @@ export const getCategories = async (req: Request, res: Response): Promise<void> 
 
 export const addCategory = async (req: Request, res: Response): Promise<void> => {
   const body: TCategory = req.body;
-  console.log(body)
 
   const category: ICategory = new Category({
     title: body.title,
     description: body.description,
   })
-  console.log(category)
+
   const newCategory: ICategory = await category.save()
   const allCategories: ICategory[] = await Category.find()
 
@@ -48,6 +47,7 @@ export const deleteCategory = async (req: Request, res: Response): Promise<void>
     req.params.id
   )
   const allCategories: ICategory[] = await Category.find()
+  
   res.status(200).json({
     message: "Category deleted",
     category: deletedCategory,

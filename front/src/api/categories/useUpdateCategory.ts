@@ -4,7 +4,7 @@ import { QueryKeys, Routes } from "../constants"
 import { ICategory } from "../types/category"
 
 const updateCategory = async (category: ICategory): Promise<ICategory[]> => {
-    console.log(category)
+
     return axios
         .put(`${Routes.categories}/${category._id}`, category)
         .then((res) => res.data.categories)

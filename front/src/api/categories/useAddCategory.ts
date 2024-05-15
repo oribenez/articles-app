@@ -4,7 +4,6 @@ import { QueryKeys, Routes } from "../constants"
 import { AddCategorySchemaType, ICategory } from "../types/category"
 
 const addCategory = async (category: AddCategorySchemaType) : Promise<ICategory[]> => {
-    console.log(category);
     return axios.post(Routes.categories, category).then((res) => res.data.categories)
 }
 
