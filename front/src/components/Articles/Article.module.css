@@ -9,6 +9,7 @@
 
 .topbar span{
     font-size: .8em;
+    min-width: 10em;
 }
 
 .actions {
