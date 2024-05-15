@@ -51,6 +51,7 @@ const ArticleForm: FC<ArticleFormProps> = ({ onSubmit, article, isEdit = false }
 
   useEffect(() => {
     reset(defaultValues);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   console.log('category', watch('category'))

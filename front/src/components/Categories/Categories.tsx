@@ -2,7 +2,6 @@ import { FC } from "react";
 import { ICategory } from "../../api/types/category";
 import Category from "./Category";
 import LoadingSpinner from "../LoadingSpinner";
-import s from './Categories.module.css'
 
 
 type CategoriesProps = {
