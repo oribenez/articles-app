@@ -74,10 +74,10 @@ The API documentation is generated using Swagger. Once the server is running, yo
 - **MongoDB**: A NoSQL database used for storing articles, categories, and tags.
 
 ## Articles
-<img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/68551995-557c-4705-983b-1316e056a5fb">
-<img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/06fb39bf-c050-4a71-9860-029d084b3f9b">
-<img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/9c32d03c-411d-4e77-92cc-26b91a06dc8e">
-<img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/323f0ab8-4ac5-4c88-9675-ac37ea00e487">
+<img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/dff64893-3406-438e-a9a1-26a0eecd723f">
+<img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/c18fa0db-18d1-40ad-8b4a-35c0cc49bac9">
+<img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/a4421717-3c0f-4ac7-a4db-4ca2bbf6980b">
+<img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/98a62d31-f976-468e-901e-ee7b044646a3">
 
 ## Swagger dashboard
 <img width="500" alt="image" src="https://github.com/oribenez/articles-app/assets/15029502/9cd20e4e-57da-45f5-9ea8-671d257b4237">
