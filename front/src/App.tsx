@@ -25,6 +25,7 @@ function App() {
         <nav>
           <NavLink to='/' className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>Articles</NavLink>
           <NavLink to='/categories' className={({ isActive, isPending }) => isPending ? "pending" : isActive ? "active" : ""}>Categories</NavLink>
+          <a href="http://localhost:8000/api-docs/" target="_blank">#Swagger-API</a>
         </nav>
       </header>
       <section>
