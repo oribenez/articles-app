@@ -63,15 +63,15 @@ a {
 }
 
 nav a.active{
-  color: var(--third-color);
+  color: var(--primary-font-color);
   text-decoration: underline;
 }
 nav a{
-  color: var(--third-color);
+  color: var(--primary-font-color);
 }
 
 nav a:hover {
-  color: var(--third-light-color);
+  color: var(--secondary-font-color);
 }
 a:hover {
   color: var(--primary-link-hover-color);

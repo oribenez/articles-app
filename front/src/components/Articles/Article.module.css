@@ -7,6 +7,10 @@
     height: fit-content;
 }
 
+.topbar span{
+    font-size: .8em;
+}
+
 .actions {
     padding: 0.2em;
     border-top: 1px solid #eee;

@@ -6,6 +6,7 @@ import { MdEdit } from "react-icons/md";
 import Modal from "react-responsive-modal";
 import ArticleForm from "./ArticleForm";
 import { IoClose } from "react-icons/io5";
+import { formatDistance } from "date-fns";
 
 type ArticleProps = {
     article: TArticlePopulated
@@ -17,14 +18,13 @@ type ArticleProps = {
 }
 
 const Article: FC<ArticleProps> = ({ article, articleInModal, showModalHandler, style, onEdit, onDelete }) => {
-
+    const friendlyDate = article.createdAt && formatDistance(new Date(article.createdAt), new Date(), { addSuffix: true })
     return <>
         <div {...(!articleInModal && { onClick: showModalHandler })}
             style={{ ...style, ...(!articleInModal && { cursor: 'pointer' }) }}>
             <div className={s.topbar}>
-                <h3 className={s.title}>
-                    {article.title}
-                </h3>
+                <h3 className={s.title}>{article.title}</h3>
+                <span>{friendlyDate}</span>
             </div>
             <div>
                 <p className={s.description}>{article.description}</p>
@@ -55,11 +55,6 @@ type CreateArticleWithModalProps = {
     showModalCreateMode: boolean
     onCloseModalCreateMode: () => void
 }
-// type EditArticleWithModalProps = {
-//     status: 'Edit'
-//     article: TArticlePopulated
-//     onUpdate: any
-// }
 
 type PlainArticleWithModalProps = {
     status: 'Plain'
